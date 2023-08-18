@@ -1,0 +1,38 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.all-routes {
+  display: flex;
+}
+
+.route {
+  margin-left: 8px;
+  color: crimson;
+  font-weight: 400;
+}
+
+.search-bar {
+  height: 26px;
+  margin-left: 8px;
+  margin-top: 13px;
+  color: black;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.search-button {
+  height: 26px;
+  margin-left: 8px;
+  margin-top: 13px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+  padding-left: 5px;
+  padding-right: 5px;
+}

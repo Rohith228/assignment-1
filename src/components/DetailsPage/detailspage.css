@@ -1,0 +1,9 @@
+.details-container {
+  padding: 25px;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
