@@ -48,23 +48,22 @@ const HomePage = ({ searchResults, search }) => {
 
     return (
       <div className="home-container">
-        <ul>
-          <li>
-            <Link
-              to={`/details/${required.id}`}
-              key={required.id}
-              className="list-element"
-            >
-              <img
-                className="poster"
-                src={imageUrl + required?.poster_path}
-                alt="poster"
-              />
-              <h5 className="title">{required.title}</h5>
-              <p className="rating">Rating: {required.vote_average}</p>
-            </Link>
-          </li>
-        </ul>
+        <Link
+          to={`/details/${required.id}`}
+          key={required.id}
+          className="element"
+        >
+          <img
+            className="poster"
+            style={{
+              marginTop: "50px",
+            }}
+            src={imageUrl + required?.poster_path}
+            alt="poster"
+          />
+          <h5 className="title">{required.title}</h5>
+          <p className="rating">Rating: {required.vote_average}</p>
+        </Link>
       </div>
     );
   }
