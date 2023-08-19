@@ -7,13 +7,22 @@ import DetailsPage from "./components/DetailsPage/DetailsPage";
 
 const App = () => {
   const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  console.log(searchResults);
 
   return (
     <BrowserRouter>
-      <Header setSearch={setSearch} />
-      <hr />
+      <Header
+        setSearch={setSearch}
+        search={search}
+        setSearchResults={setSearchResults}
+      />
       <Routes>
-        <Route path="/" element={<HomePage search={search} />} />
+        <Route
+          path="/"
+          element={<HomePage searchResults={searchResults} search={search} />}
+        />
         <Route path="/details/:id" element={<DetailsPage />} />
       </Routes>
     </BrowserRouter>

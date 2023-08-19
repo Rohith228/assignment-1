@@ -2,6 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: #282b33;
+  padding-bottom: 250px;
 }
 
 .list-container {
@@ -22,11 +26,12 @@
 }
 
 .poster {
-  height: 200px;
+  height: auto;
+  width: 75%;
 }
 
 .title {
-  color: brown;
+  color: #8e9095;
   font-weight: bold;
   font-size: 18px;
 }
@@ -34,6 +39,42 @@
 .rating {
   margin-bottom: 15px;
   font-style: italic;
-  color: green;
+  color: #8e9095;
   font-weight: bold;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #eaeaea;
+  color: #333;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button.active {
+  background-color: #333;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .home-container {
+    padding: 0 10px;
+  }
+
+  .list-element {
+    width: 45%;
+  }
+
+  .pagination {
+    flex-direction: row;
+    align-items: center;
+  }
 }

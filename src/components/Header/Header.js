@@ -3,11 +3,21 @@ import { Link } from "react-router-dom";
 import "./header.css";
 
 const Header = (props) => {
-  console.log(props);
-  const { setSearch } = props;
+  const { setSearch, search, setSearchResults } = props;
+
+  const searchApiUrl = `https://api.themoviedb.org/3/search/movie?api_key=c45a857c193f6302f2b5061c3b85e743&language=en-US&query=${search}&page=1`;
 
   const onChangeSearchInput = (e) => {
     setSearch(e.target.value);
+  };
+
+  const handleClick = async () => {
+    const options = {
+      method: "GET",
+    };
+    const response = await fetch(searchApiUrl, options);
+    const data = await response.json();
+    setSearchResults(data);
   };
 
   return (
@@ -17,6 +27,7 @@ const Header = (props) => {
           textDecoration: "none",
           fontWeight: "bold",
           fontSize: "30px",
+          color: "white",
         }}
         to="/"
       >
@@ -32,7 +43,7 @@ const Header = (props) => {
           type="search"
           placeholder="Enter movie name"
         />
-        <button type="submit" className="search-button">
+        <button onClick={handleClick} type="submit" className="search-button">
           Search
         </button>
       </div>

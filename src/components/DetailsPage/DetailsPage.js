@@ -6,10 +6,7 @@ import "./detailspage.css";
 
 const DetailsPage = () => {
   const [movie, setMovie] = useState([]);
-
   const { id } = useParams();
-  console.log(id);
-
   const imageUrl = "https://image.tmdb.org/t/p/w500";
   const detailsUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=c45a857c193f6302f2b5061c3b85e743&language=en-US`;
 
@@ -22,9 +19,7 @@ const DetailsPage = () => {
     setMovie(data);
   };
 
-  console.log(movie);
   const { genres } = movie;
-  console.log(genres);
 
   useEffect(() => {
     getMovieDetails();
@@ -34,11 +29,7 @@ const DetailsPage = () => {
     <div className="details-container">
       <div className="top-container">
         <div>
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
+          <div className="poster-and-details">
             <img
               style={{
                 height: "300px",
@@ -55,14 +46,14 @@ const DetailsPage = () => {
             >
               <h1
                 style={{
-                  color: "crimson",
+                  color: "#B3B6BA",
                 }}
               >
                 {movie.title}
               </h1>
               <h2
                 style={{
-                  color: "green",
+                  color: "#536F8F",
                 }}
               >
                 Rating: {movie.vote_average}
@@ -75,7 +66,7 @@ const DetailsPage = () => {
               >
                 <p
                   style={{
-                    color: "indigo",
+                    color: "#B3B6BA",
                     fontWeight: "bold",
                   }}
                 >
@@ -97,7 +88,7 @@ const DetailsPage = () => {
               </div>
               <p
                 style={{
-                  color: "goldenrod",
+                  color: "#535A62",
                 }}
               >
                 Release Date: {movie.release_date}
@@ -106,20 +97,25 @@ const DetailsPage = () => {
           </div>
           <div
             style={{
-              width: "900px",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
               flexWrap: "wrap",
+              marginLeft: "25px",
             }}
           >
             <h2
               style={{
-                color: "crimson",
+                color: "#B3B6BA",
               }}
             >
               Overview
             </h2>
             <p
+              className="overview-text"
               style={{
-                color: "blue",
+                color: "#616975",
               }}
             >
               {movie.overview}
@@ -127,9 +123,10 @@ const DetailsPage = () => {
           </div>
         </div>
         <img
+          className="backdrop"
           style={{
-            width: "50%",
-            backgroundSize: "cover",
+            width: "100%",
+            height: "auto",
           }}
           src={imageUrl + movie.backdrop_path}
           alt="backdrop_poster"
@@ -137,7 +134,7 @@ const DetailsPage = () => {
       </div>
       <h2
         style={{
-          color: "crimson",
+          color: "#B3B6BA",
         }}
       >
         Cast
