@@ -26,7 +26,7 @@ const HomePage = ({ searchResults }) => {
     setIsLoading(false);
   };
 
-  if (page < 1) {
+  if (page < 1 || page > 500) {
     setPage(1);
   }
 
