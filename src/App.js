@@ -9,8 +9,6 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  console.log(searchResults);
-
   return (
     <BrowserRouter>
       <Header

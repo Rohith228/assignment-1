@@ -19,9 +19,24 @@ const CastDetails = ({ movieid }) => {
     getCast();
   }, [movieid]);
 
+  const totalPages = Math.ceil(casting?.length / itemsPerPage);
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = casting?.slice(indexOfFirstItem, indexOfLastItem);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -82,25 +97,51 @@ const CastDetails = ({ movieid }) => {
           marginTop: "20px",
         }}
       >
-        {Array.from({ length: Math.ceil(casting?.length / itemsPerPage) }).map(
-          (_, index) => (
-            <button
-              key={index}
-              style={{
-                margin: "5px",
-                padding: "5px 10px",
-                backgroundColor:
-                  currentPage === index + 1 ? "#007BFF" : "#E0E0E0",
-                color: currentPage === index + 1 ? "white" : "#333",
-                border: "none",
-                cursor: "pointer",
-              }}
-              onClick={() => paginate(index + 1)}
-            >
-              {index + 1}
-            </button>
-          )
-        )}
+        <button
+          style={{
+            margin: "5px",
+            padding: "5px 10px",
+            backgroundColor: "#E0E0E0",
+            color: "#333",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={goToPreviousPage}
+        >
+          Previous
+        </button>
+
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            style={{
+              margin: "5px",
+              padding: "5px 10px",
+              backgroundColor:
+                currentPage === index + 1 ? "#007BFF" : "#E0E0E0",
+              color: currentPage === index + 1 ? "white" : "#333",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={() => paginate(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          style={{
+            margin: "5px",
+            padding: "5px 10px",
+            backgroundColor: "#E0E0E0",
+            color: "#333",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={goToNextPage}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

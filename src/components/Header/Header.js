@@ -26,13 +26,13 @@ const Header = (props) => {
   return (
     <div className="header-container">
       <Link
+        to="/"
         style={{
           textDecoration: "none",
           fontWeight: "bold",
           fontSize: "30px",
           color: "white",
         }}
-        to="/"
       >
         MovieDb
       </Link>

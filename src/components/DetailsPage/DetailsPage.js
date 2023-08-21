@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CastDetails from "../CastDetails/CastDetails";
 import "./detailspage.css";
+import { TailSpin } from "react-loader-spinner";
 
 const DetailsPage = () => {
   const [movie, setMovie] = useState([]);
+  const [loading, setIsLoading] = useState(true);
   const { id } = useParams();
   const imageUrl = "https://image.tmdb.org/t/p/w500";
   const detailsUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=c45a857c193f6302f2b5061c3b85e743&language=en-US`;
@@ -17,6 +19,7 @@ const DetailsPage = () => {
     const response = await fetch(detailsUrl, options);
     const data = await response.json();
     setMovie(data);
+    setIsLoading(false);
   };
 
   const { genres } = movie;
@@ -24,6 +27,23 @@ const DetailsPage = () => {
   useEffect(() => {
     getMovieDetails();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <TailSpin
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="details-container">

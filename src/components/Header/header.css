@@ -13,6 +13,7 @@
   margin-left: 8px;
   color: #565c61;
   font-weight: 400;
+  margin-top: 15px;
 }
 
 .search-bar {
@@ -29,13 +30,12 @@
   height: 26px;
   margin-left: 8px;
   margin-top: 13px;
-  background-color: blue;
+  background-color: #6c747c;
   color: #a5abaf;
   cursor: pointer;
   border-radius: 5px;
   outline: none;
-  padding: auto;
-  background-color: #6c747c;
+  padding: 0 10px;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import "./homepage.css";
+import { TailSpin } from "react-loader-spinner";
+import Pagination from "pagination-for-reactjs-component";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./homepage.css";
 
-const HomePage = ({ searchResults, search }) => {
+const HomePage = ({ searchResults }) => {
   const [movies, setMovies] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const moviesPerPage = 10;
+  const [page, setPage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const imageUrl = "https://image.tmdb.org/t/p/w500";
 
   const getAllMovies = async () => {
-    const url =
-      "https://api.themoviedb.org/3/movie/popular?api_key=c45a857c193f6302f2b5061c3b85e743&language=en-US&page=" +
-      currentPage;
+    setIsLoading(true);
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=c45a857c193f6302f2b5061c3b85e743&language=en-US&page=${page}`;
+
     let options = {
       method: "GET",
     };
@@ -19,17 +23,18 @@ const HomePage = ({ searchResults, search }) => {
     const data = await response.json();
     const { results } = data;
     setMovies(results);
+    setIsLoading(false);
   };
+
+  if (page < 1) {
+    setPage(1);
+  }
 
   useEffect(() => {
     getAllMovies();
-  }, [currentPage]);
+  }, [page]);
 
-  const indexOfLastMovie = currentPage * moviesPerPage;
-  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
-
-  const renderMovies = currentMovies.map((each) => (
+  const renderMovies = movies.map((each) => (
     <Link to={`/details/${each.id}`} key={each.id} className="list-element">
       <img className="poster" src={imageUrl + each?.poster_path} alt="poster" />
       <h5 className="title">{each.title}</h5>
@@ -37,9 +42,23 @@ const HomePage = ({ searchResults, search }) => {
     </Link>
   ));
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(movies.length / moviesPerPage); i++) {
-    pageNumbers.push(i);
+  if (isLoading) {
+    return (
+      <div className="home-container">
+        <div className="loader">
+          <TailSpin
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="tail-spin-loading"
+            radius="1"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </div>
+      </div>
+    );
   }
 
   if (searchResults?.results?.length > 0) {
@@ -72,16 +91,50 @@ const HomePage = ({ searchResults, search }) => {
     <div className="home-container">
       <ul className="list-container">{renderMovies}</ul>
       <div className="pagination">
-        {pageNumbers.map((number) => (
+        {page > 0 && (
           <button
-            key={number}
-            className={number === currentPage ? "active" : ""}
-            onClick={() => setCurrentPage(number)}
+            style={{
+              height: "38px",
+              marginTop: "20px",
+              backgroundColor: "black",
+              color: "white",
+              cursor: "pointer",
+              padding: "5px",
+            }}
+            onClick={() => setPage(page - 1)}
           >
-            {number}
+            previous
           </button>
-        ))}
+        )}
+        <div
+          style={{
+            backgroundColor: "#282B33",
+            textAlign: "center",
+            paddingLeft: "5px",
+            paddingRight: "5px",
+          }}
+        >
+          <Pagination pageCount={500} pageIndex={page} setPageIndex={setPage} />
+          <h6 style={{ color: "white" }}>page: {page}</h6>
+        </div>
+
+        {page <= 500 && (
+          <button
+            style={{
+              height: "38px",
+              marginTop: "20px",
+              backgroundColor: "black",
+              color: "white",
+              cursor: "pointer",
+              padding: "5px",
+            }}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </button>
+        )}
       </div>
+      <div></div>
     </div>
   );
 };
