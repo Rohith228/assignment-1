@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./header.css";
 
 const Header = (props) => {
   const { setSearch, search, setSearchResults } = props;
+  const navigate = useNavigate();
 
   const searchApiUrl = `https://api.themoviedb.org/3/search/movie?api_key=c45a857c193f6302f2b5061c3b85e743&language=en-US&query=${search}&page=1`;
 
@@ -18,6 +20,7 @@ const Header = (props) => {
     const response = await fetch(searchApiUrl, options);
     const data = await response.json();
     setSearchResults(data);
+    navigate("/");
   };
 
   return (
