@@ -38,6 +38,8 @@ const CastDetails = ({ movieid }) => {
   const currentItems = casting?.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  let next = ">";
+  let previous = "<";
 
   return (
     <div>
@@ -108,7 +110,7 @@ const CastDetails = ({ movieid }) => {
           }}
           onClick={goToPreviousPage}
         >
-          Previous
+          {previous}
         </button>
 
         {Array.from({ length: totalPages }).map((_, index) => (
@@ -140,7 +142,7 @@ const CastDetails = ({ movieid }) => {
           }}
           onClick={goToNextPage}
         >
-          Next
+          {next}
         </button>
       </div>
     </div>
