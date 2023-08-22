@@ -34,6 +34,9 @@ const HomePage = ({ searchResults }) => {
     getAllMovies();
   }, [page]);
 
+  let FrontButton = ">";
+  let BackButton = "<";
+
   const renderMovies = movies.map((each) => (
     <Link to={`/details/${each.id}`} key={each.id} className="list-element">
       <img className="poster" src={imageUrl + each?.poster_path} alt="poster" />
@@ -103,7 +106,7 @@ const HomePage = ({ searchResults }) => {
             }}
             onClick={() => setPage(page - 1)}
           >
-            previous
+            {BackButton}
           </button>
         )}
         <div
@@ -130,7 +133,7 @@ const HomePage = ({ searchResults }) => {
             }}
             onClick={() => setPage(page + 1)}
           >
-            Next
+            {FrontButton}
           </button>
         )}
       </div>
